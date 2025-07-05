@@ -226,10 +226,8 @@ class MockData {
   }
 }
 
-// Add extension to InstrumentModel for mock data
-extension InstrumentModelMocks on InstrumentModel {
-  static List<InstrumentModel> mockList() => MockData.generateMockInstruments();
-  
+// Extension methods for InstrumentModel
+extension InstrumentModelHelpers on InstrumentModel {
   String get formattedPrice => '\$${price.toStringAsFixed(2)}';
   String get formattedChange => '${change >= 0 ? '+' : ''}\$${change.toStringAsFixed(2)}';
   String get formattedChangePercent => '${changePercent >= 0 ? '+' : ''}${changePercent.toStringAsFixed(2)}%';
