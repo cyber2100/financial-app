@@ -1,148 +1,71 @@
-// lib/data/models/portfolio_item_model.dart
-import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
+// lib/data/models/portfolio_item_model.g.dart
+// GENERATED CODE - DO NOT MODIFY BY HAND
 
-part 'portfolio_item_model.g.dart';
+part of 'portfolio_item_model.dart';
 
-@JsonSerializable()
-class PortfolioItemModel extends Equatable {
-  final String id;
-  final String instrumentId;
-  final String symbol;
-  final String name;
-  final double quantity;
-  final double averageCost;
-  final double currentPrice;
-  final double totalCost;
-  final double currentValue;
-  final DateTime purchaseDate;
-  final DateTime lastUpdated;
-  final String? notes;
-  final List<TransactionModel> transactions;
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
 
-  const PortfolioItemModel({
-    required this.id,
-    required this.instrumentId,
-    required this.symbol,
-    required this.name,
-    required this.quantity,
-    required this.averageCost,
-    required this.currentPrice,
-    required this.totalCost,
-    required this.currentValue,
-    required this.purchaseDate,
-    required this.lastUpdated,
-    this.notes,
-    this.transactions = const [],
-  });
-
-  factory PortfolioItemModel.fromJson(Map<String, dynamic> json) =>
-      _$PortfolioItemModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$PortfolioItemModelToJson(this);
-
-  PortfolioItemModel copyWith({
-    String? id,
-    String? instrumentId,
-    String? symbol,
-    String? name,
-    double? quantity,
-    double? averageCost,
-    double? currentPrice,
-    double? totalCost,
-    double? currentValue,
-    DateTime? purchaseDate,
-    DateTime? lastUpdated,
-    String? notes,
-    List<TransactionModel>? transactions,
-  }) {
-    return PortfolioItemModel(
-      id: id ?? this.id,
-      instrumentId: instrumentId ?? this.instrumentId,
-      symbol: symbol ?? this.symbol,
-      name: name ?? this.name,
-      quantity: quantity ?? this.quantity,
-      averageCost: averageCost ?? this.averageCost,
-      currentPrice: currentPrice ?? this.currentPrice,
-      totalCost: totalCost ?? this.totalCost,
-      currentValue: currentValue ?? this.currentValue,
-      purchaseDate: purchaseDate ?? this.purchaseDate,
-      lastUpdated: lastUpdated ?? this.lastUpdated,
-      notes: notes ?? this.notes,
-      transactions: transactions ?? this.transactions,
+PortfolioItemModel _$PortfolioItemModelFromJson(Map<String, dynamic> json) =>
+    PortfolioItemModel(
+      id: json['id'] as String,
+      instrumentId: json['instrumentId'] as String,
+      symbol: json['symbol'] as String,
+      name: json['name'] as String,
+      quantity: (json['quantity'] as num).toDouble(),
+      averageCost: (json['averageCost'] as num).toDouble(),
+      currentPrice: (json['currentPrice'] as num).toDouble(),
+      totalCost: (json['totalCost'] as num).toDouble(),
+      currentValue: (json['currentValue'] as num).toDouble(),
+      purchaseDate: DateTime.parse(json['purchaseDate'] as String),
+      lastUpdated: DateTime.parse(json['lastUpdated'] as String),
+      notes: json['notes'] as String?,
+      transactions: (json['transactions'] as List<dynamic>?)
+              ?.map((e) => TransactionModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
-  }
 
-  PortfolioItemModel updatePrice(double newPrice) {
-    return copyWith(
-      currentPrice: newPrice,
-      currentValue: quantity * newPrice,
-      lastUpdated: DateTime.now(),
+Map<String, dynamic> _$PortfolioItemModelToJson(PortfolioItemModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'instrumentId': instance.instrumentId,
+      'symbol': instance.symbol,
+      'name': instance.name,
+      'quantity': instance.quantity,
+      'averageCost': instance.averageCost,
+      'currentPrice': instance.currentPrice,
+      'totalCost': instance.totalCost,
+      'currentValue': instance.currentValue,
+      'purchaseDate': instance.purchaseDate.toIso8601String(),
+      'lastUpdated': instance.lastUpdated.toIso8601String(),
+      'notes': instance.notes,
+      'transactions': instance.transactions.map((e) => e.toJson()).toList(),
+    };
+
+TransactionModel _$TransactionModelFromJson(Map<String, dynamic> json) =>
+    TransactionModel(
+      id: json['id'] as String,
+      portfolioItemId: json['portfolioItemId'] as String,
+      type: json['type'] as String,
+      quantity: (json['quantity'] as num).toDouble(),
+      price: (json['price'] as num).toDouble(),
+      amount: (json['amount'] as num).toDouble(),
+      date: DateTime.parse(json['date'] as String),
+      notes: json['notes'] as String?,
+      fees: (json['fees'] as num?)?.toDouble(),
     );
-  }
 
-  double get gainLoss => currentValue - totalCost;
-  double get gainLossPercent => totalCost > 0 ? (gainLoss / totalCost) * 100 : 0.0;
-  bool get isProfitable => gainLoss > 0;
-  bool get isAtLoss => gainLoss < 0;
-
-  @override
-  List<Object?> get props => [
-        id,
-        instrumentId,
-        symbol,
-        name,
-        quantity,
-        averageCost,
-        currentPrice,
-        totalCost,
-        currentValue,
-        purchaseDate,
-        lastUpdated,
-        notes,
-        transactions,
-      ];
-}
-
-@JsonSerializable()
-class TransactionModel extends Equatable {
-  final String id;
-  final String portfolioItemId;
-  final String type; // 'buy', 'sell', 'dividend'
-  final double quantity;
-  final double price;
-  final double amount;
-  final DateTime date;
-  final String? notes;
-  final double? fees;
-
-  const TransactionModel({
-    required this.id,
-    required this.portfolioItemId,
-    required this.type,
-    required this.quantity,
-    required this.price,
-    required this.amount,
-    required this.date,
-    this.notes,
-    this.fees,
-  });
-
-  factory TransactionModel.fromJson(Map<String, dynamic> json) =>
-      _$TransactionModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$TransactionModelToJson(this);
-
-  @override
-  List<Object?> get props => [
-        id,
-        portfolioItemId,
-        type,
-        quantity,
-        price,
-        amount,
-        date,
-        notes,
-        fees,
-      ];
-}
+Map<String, dynamic> _$TransactionModelToJson(TransactionModel instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'portfolioItemId': instance.portfolioItemId,
+      'type': instance.type,
+      'quantity': instance.quantity,
+      'price': instance.price,
+      'amount': instance.amount,
+      'date': instance.date.toIso8601String(),
+      'notes': instance.notes,
+      'fees': instance.fees,
+    };
