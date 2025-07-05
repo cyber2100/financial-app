@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import '../../../core/constants/app_constants.dart';
+
+
 // lib/presentation/widgets/common/empty_state.dart
 class CustomEmptyState extends StatelessWidget {
   final IconData icon;

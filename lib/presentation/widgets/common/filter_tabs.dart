@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import '../../../core/constants/app_constants.dart';
+
+
 // lib/presentation/widgets/common/filter_tabs.dart
 class FilterTabs extends StatelessWidget {
   final String selectedFilter;
